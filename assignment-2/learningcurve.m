@@ -5,24 +5,20 @@ nmax = 100;
 nD = 10;
 teacher = ones(N, 1);
 generror = zeros(1,alphaValues);
+tol = 0.00001;
+
 for i = 1:alphaValues
     
     P = round(alpha(i) * N);
     
     learningcurves = zeros(1,nD);
     for j = 1:nD
-        % Inputs, vectors of dimension N
-        D = randn(N, P);
-        % Labels, -1 or +1
-        L = zeros(1,P);
-        for k = 1:P
-            L(1,k) = sign(teacher' * D(:,k)); 
-        end
+        [D, L] = generateRandomData(N, P, teacher);
 
-        w = minover(D, L, nmax, 0.00001);
+        w = minover(D, L, nmax, tol);
 
         % Compute learning curve
-        learningcurves(j) = acos(w' * teacher / norm(w) / norm(teacher)) / pi; 
+        learningcurves(j) = learningRate(w, teacher);
     end
     generror(i) = mean(learningcurves);
 end
