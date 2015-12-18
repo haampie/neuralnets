@@ -5,7 +5,7 @@ function [w, flops] = minover(input, labels, iterations, tol)
 
     w = zeros(N, 1);
     w(1) = 1;
-    
+    %dingen
     for n = 1:iterations
         [~, index] = min( (w' * input) .* labels);
         
