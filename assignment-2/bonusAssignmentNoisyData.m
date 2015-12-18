@@ -55,7 +55,7 @@ end
 
 figure
 hold on;
-plot(generror(:, 1), 'b')
-plot(generror(:, 2), 'r')
+plot(alpha, generror(:, 1), 'b')
+plot(alpha, generror(:, 2), 'r')
 
 legend('Minover', 'Rosenblatt');

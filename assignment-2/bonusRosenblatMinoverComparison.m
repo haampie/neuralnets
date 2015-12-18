@@ -1,11 +1,11 @@
 N = 100;
-alpha = 0.1:0.1:5;
+alpha = 0.1:0.1:10;
 alphaValues = size(alpha, 2);
 nmax = 10000;
-nD = 20;
+nD = 100;
 teacher = ones(N, 1);
 generror = zeros(alphaValues, 2);
-tol = 0.0001;
+tol = 0.00001;
 
 for i = 1:alphaValues
     
