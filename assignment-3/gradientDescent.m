@@ -32,19 +32,10 @@ for i = 0:(P*tmax - 1)
 end
 
 % Check error on the training set
-E = 0;
-
-for i = 1:P
-    E = E + (sum(tanh(W' * permutedData(:, i))) - permutedLabels(i))^2;
-end
-
-E = E / (2 * P)
+E = sum((ones(1, 2) * tanh(W' * permutedData(:, 1:P)) -  permutedLabels(1:P)).^2) / (2 * P);
 
 % Check the generalization error (error on all data without training set)
-Etest = 0;
+Etest = sum((ones(1, 2) * tanh(W' * permutedData(:, (P+1):M)) -  permutedLabels((P+1):M)).^2) / (2 * (M - P));
 
-for i = (P+1):M
-    Etest = Etest + (sum(tanh(W' * permutedData(:, i))) - permutedLabels(i))^2;
-end
 
-Etest = Etest / (2 * (M - P))
+E, Etest
