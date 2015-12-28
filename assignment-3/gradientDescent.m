@@ -1,41 +1,42 @@
-P = 500; 
-tmax = 1000;
+% Input dimension
 N = 50;
-% learning rate
-eta = 0.01; 
-% initial weight vectors
-w1 = rand(N,1);
-w1 = w1 / norm(w1);
-w2 = rand(N,1);
-w2 = w2 / norm(w2);
 
+% Training size
+P = 500;
+
+% Iterate tmax times over the training set
+tmax = 1000;
+
+% Learning rate
+eta = 0.01;
+
+% Initial weight vectors
+W = normc(rand(N, 2));
+
+% Start learning
 for i = 0:(P*tmax - 1)
     j = 1 + mod(i, P);
-    tan1 = tanh(w1' * xi(:,j));
-    tan2 = tanh(w2' * xi(:,j));
-    sigma = tan1 + tan2;
-    w1 = w1 - eta * (sigma - tau(j))*(1 - tan1^2) * xi(:, j);
-    w2 = w2 - eta * (sigma - tau(j))*(1 - tan2^2) * xi(:, j);
+    input = tanh(W' * xi(:, j));
+    
+    for k = 1:2
+        W(:, k) = W(:, k) - eta * (sum(input) - tau(j)) * (1 - input(k)^2) * xi(:, j);
+    end
 end
 
+% Check error on the training set
 E = 0;
 
 for i = 1:P
-    tan1 = tanh(w1' * xi(:,i));
-    tan2 = tanh(w2' * xi(:,i));
-    sigma = tan1 + tan2;
-    E = E + (sigma - tau(i))^2;
+    E = E + (sum(tanh(W' * xi(:, i))) - tau(i))^2;
 end
 
 E = E / (2 * P)
 
+% Check the generalization error (error on all data without training set)
 Etest = 0;
 
 for i = (P+1):size(xi, 2)
-    tan1 = tanh(w1' * xi(:,i));
-    tan2 = tanh(w2' * xi(:,i));
-    sigma = tan1 + tan2;
-    Etest = Etest + (sigma - tau(i))^2;
+    Etest = Etest + (sum(tanh(W' * xi(:, i))) - tau(i))^2;
 end
 
 Etest = Etest / (2 * (size(xi, 2) - P))
