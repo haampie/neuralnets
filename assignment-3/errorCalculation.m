@@ -1,7 +1,4 @@
-function [ output_args ] = Untitled( input_args )
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
-
-
+function E = errorCalculation(W, xi, tau)
+    E = sum((ones(1, 2) * tanh(W' * xi) - tau).^2) / (2 * size(xi, 2));
 end
 

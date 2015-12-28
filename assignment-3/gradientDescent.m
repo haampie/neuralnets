@@ -1,20 +1,37 @@
-P = 500; 
-tmax = 1000;
+% Input dimension
 N = 50;
-% learning rate
-eta = 0.01; 
-% initial weight vectors
-w1 = rand(N,1);
-w1 = w1 / norm(w1);
-w2 = rand(N,1);
-w2 = w2 / norm(w2);
 
+% Training size
+P = 500;
+
+% Input size
+M = 5000;
+
+% Iterate tmax times over the training set
+tmax = 1000;
+
+% Learning rate
+eta = 0.01;
+
+% Initial weight vectors
+W = normc(rand(N, 2));
+
+% Permute input
+permutation = randperm(M);
+permutedData = xi(:, permutation);
+permutedLabels = tau(permutation);
+
+% Start learning
 for i = 0:(P*tmax - 1)
     j = 1 + mod(i, P);
-    tan1 = tanh(w1' * xi(:,j));
-    tan2 = tanh(w2' * xi(:,j));
-    sigma = tan1 + tan2;
-    w1 = w1 - eta * (sigma - tau(j))*(1 - tan1^2) * xi(:, j);
-    w2 = w2 - eta * (sigma - tau(j))*(1 - tan2^2) * xi(:, j);
-    [E,Etest] = errorCalculation(w1,w2,P,xi,tau);
+    input = tanh(W' * permutedData(:, j));
+    
+    for k = 1:2
+        W(:, k) = W(:, k) - eta * (sum(input) - permutedLabels(j)) * (1 - input(k)^2) * permutedData(:, j);
+    end
+    
+    if j == 1
+        Etraining = errorCalculation(W, permutedData(:, 1:P), permutedLabels(1:P))
+        Etestdata = errorCalculation(W, permutedData(:, P+1:M), permutedLabels(P+1:M))
+    end
 end
