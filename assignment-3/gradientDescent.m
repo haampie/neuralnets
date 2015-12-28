@@ -39,4 +39,8 @@ for i = 0:(P*tmax - 1)
         Etest_vector(i/P+1) = errorCalculation(W, permutedData(:, P+1:M), permutedLabels(P+1:M));
     end
 end
-E_vector
+
+figure;
+plot(E_vector)
+hold on
+plot(Etest_vector,'r')
