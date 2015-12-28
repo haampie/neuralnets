@@ -2,7 +2,7 @@
 N = 50;
 
 % Training size
-P = 500;
+P = 2500;
 
 % Input size
 M = 5000;
@@ -11,7 +11,7 @@ M = 5000;
 tmax = 100;
 
 % Learning rate
-eta = 0.01;
+eta = 0.001;
 
 % Initial weight vectors
 W = normc(rand(N, 2));
@@ -39,8 +39,14 @@ for i = 0:(P*tmax - 1)
         Etest_vector(i/P+1) = errorCalculation(W, permutedData(:, P+1:M), permutedLabels(P+1:M));
     end
 end
-
 figure;
 plot(E_vector)
 hold on
 plot(Etest_vector,'r')
+hold off
+
+%figure
+%bar(W(:,1));
+
+
+
