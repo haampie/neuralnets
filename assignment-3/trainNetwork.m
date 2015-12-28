@@ -1,4 +1,4 @@
-function [W, trainingError, totalError] = trainNetwork(xi, tau, trainingSize, tmax, eta)
+function [W, trainingError, setError] = trainNetwork(xi, tau, trainingSize, tmax, eta)
     N = size(xi, 1);
     M = size(xi, 2);
     W = normc(rand(N, 2));
@@ -6,7 +6,7 @@ function [W, trainingError, totalError] = trainNetwork(xi, tau, trainingSize, tm
     
     if nargout == 3
         trainingError = [];
-        totalError = [];
+        setError = [];
     end
 
     for i = 0:(P*tmax - 1)
@@ -18,8 +18,8 @@ function [W, trainingError, totalError] = trainNetwork(xi, tau, trainingSize, tm
         end
 
         if j == 1 && nargout == 3
-            trainingError(i/P+1) = errorCalculation(W, xi(:, 1:P), tau(1:P));
-            totalError(i/P+1) = errorCalculation(W, xi(:, P+1:M), tau(P+1:M));
+            trainingError(i/P+1) = calculateError(W, xi(:, 1:P), tau(1:P));
+            setError(i/P+1) = calculateError(W, xi(:, P+1:M), tau(P+1:M));
         end
     end
 end

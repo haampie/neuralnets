@@ -8,7 +8,7 @@ P = 500;
 M = 5000;
 
 % Iterate tmax times over the training set
-tmax = 100;
+tmax = 20;
 
 % Learning rate
 eta = 0.01;
@@ -19,4 +19,9 @@ permutedData = xi(:, permutation);
 permutedLabels = tau(permutation);
 
 % Start learning
-[W] = trainNetwork(permutedData, permutedLabels, P, tmax, eta);
+[W, trainingError, setError] = trainNetwork(permutedData, permutedLabels, P, tmax, eta);
+
+figure;
+plot(trainingError)
+hold on
+plot(setError,'r')
