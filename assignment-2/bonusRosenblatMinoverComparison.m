@@ -1,8 +1,8 @@
 N = 100;
-alpha = 0.1:0.1:10;
+alpha = 0.1:0.1:6;
 alphaValues = size(alpha, 2);
-nmax = 10000;
-nD = 100;
+nmax = 1000;
+nD = 10;
 teacher = ones(N, 1);
 generror = zeros(alphaValues, 2);
 tol = 0.00001;
