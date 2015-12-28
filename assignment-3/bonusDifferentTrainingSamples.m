@@ -11,7 +11,7 @@ Pvalues = [5 10 15 20 30 40 50 75 100 200 300 500 750 1000 1500 2000];
 tmax = 100;
 
 % Learning rate
-eta = 0.01;
+eta = 0.05;
 
 % Permute input
 permutation = randperm(M);
