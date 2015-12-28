@@ -8,13 +8,17 @@ P = 500;
 M = 5000;
 
 % Iterate tmax times over the training set
-tmax = 1000;
+tmax = 100;
 
 % Learning rate
 eta = 0.01;
 
 % Initial weight vectors
 W = normc(rand(N, 2));
+
+% Initial training and test error
+E_vector = zeros(1,tmax);
+Etest_vector = zeros(1,tmax);
 
 % Permute input
 permutation = randperm(M);
@@ -31,7 +35,8 @@ for i = 0:(P*tmax - 1)
     end
     
     if j == 1
-        Etraining = errorCalculation(W, permutedData(:, 1:P), permutedLabels(1:P))
-        Etestdata = errorCalculation(W, permutedData(:, P+1:M), permutedLabels(P+1:M))
+        E_vector(i/P+1) = errorCalculation(W, permutedData(:, 1:P), permutedLabels(1:P));
+        Etest_vector(i/P+1) = errorCalculation(W, permutedData(:, P+1:M), permutedLabels(P+1:M));
     end
 end
+E_vector
