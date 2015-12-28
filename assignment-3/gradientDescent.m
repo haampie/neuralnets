@@ -11,7 +11,7 @@ M = 5000;
 tmax = 20;
 
 % Learning rate
-eta = 0.001;
+eta = 0.05;
 
 % Permute input
 permutation = randperm(M);
