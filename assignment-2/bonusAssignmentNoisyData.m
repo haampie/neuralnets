@@ -1,9 +1,9 @@
 %% See the history of Minover with random data.
 N = 2;
-P = 100;
+P = 3;
 teacher = ones(N, 1);
 
-[data, labels] = generateNoisyData(N, P, teacher, 0);
+[data, labels] = generateNoisyData(N, P, teacher, 0.1);
 
 nmax = 1000;
 tol = 0.00001;
@@ -27,6 +27,7 @@ plotdata(data, labels, fighandle);
 %% Compare Minover with Rosenblatt on random data.
 N = 100;
 alpha = 0.1:0.1:5;
+alpha = 0.1:0.1:5;
 alphaValues = size(alpha, 2);
 nmax = 200;
 nD = 30;
@@ -40,7 +41,7 @@ for i = 1:alphaValues
     
     learningcurves = zeros(nD, 1);
     for j = 1:nD
-        [data, labels] = generateNoisyData(N, P, teacher, 0.3);
+        [data, labels] = generateNoisyData(N, P, teacher, .1);
         
         w1 = minover(data, labels, nmax, tol);
         w2 = rosenblatt(data, labels, nmax);

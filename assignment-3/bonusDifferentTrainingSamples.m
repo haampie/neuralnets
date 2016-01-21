@@ -5,13 +5,13 @@ N = 50;
 M = 5000;
 
 % Different sample sizes
-Pvalues = [5 10 15 20 30 40 50 75 100 200 300 500 750 1000 1500 2000];
+Pvalues = 50:100:150;
 
 % Iterate tmax times over the training set
-tmax = 100;
+tmax = 4000;
 
 % Learning rate
-eta = 0.05;
+eta = 0.001;
 
 % Permute input
 permutation = randperm(M);
@@ -30,6 +30,6 @@ end
 
 figure
 hold on;
-plot(Pvalues, errors(:, 1), 'b')
-plot(Pvalues, errors(:, 2), 'r')
+semilogy(Pvalues, errors(:, 1), 'b')
+semilogy(Pvalues, errors(:, 2), 'r')
 hold off;

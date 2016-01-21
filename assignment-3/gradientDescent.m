@@ -1,17 +1,14 @@
-% Input dimension
-N = 50;
-
 % Training size
-P = 2500;
+P = 500;
 
 % Input size
 M = 5000;
 
 % Iterate tmax times over the training set
-tmax = 20;
+tmax = 2500;
 
 % Learning rate
-eta = 0.05;
+eta = 0.001;
 
 % Permute input
 permutation = randperm(M);
@@ -19,12 +16,15 @@ permutedData = xi(:, permutation);
 permutedLabels = tau(permutation);
 
 % Start learning
-[W, trainingError, setError] = trainNetwork(permutedData, permutedLabels, P, tmax, eta);
+[W, trainingError, generalizationError] = trainNetwork(permutedData, permutedLabels, P, tmax, eta);
 
 figure;
-plot(trainingError)
+semilogy(trainingError)
 hold on
-plot(setError,'r')
+semilogy(generalizationError,'r')
+xlabel('t')
+ylabel('error')
+legend('Training error', 'Generalization error')
 hold off
 
 %figure

@@ -9,17 +9,19 @@ function [W, trainingError, setError] = trainNetwork(xi, tau, trainingSize, tmax
         setError = [];
     end
 
-    for i = 0:(P*tmax - 1)
-        j = 1 + mod(i, P);
-        input = tanh(W' * xi(:, j));
+    for time = 1:tmax
+        for points = 1:P
+            j = randi([1, P]); % pick a random index between 1 and P
+            input = tanh(W' * xi(:, j));
 
-        for k = 1:2
-            W(:, k) = W(:, k) - eta * (sum(input) - tau(j)) * (1 - input(k)^2) * xi(:, j);
+            for k = 1:2
+                W(:, k) = W(:, k) - eta * (sum(input) - tau(j)) * (1 - input(k)^2) * xi(:, j);
+            end
         end
-
-        if j == 1 && nargout == 3
-            trainingError(i/P+1) = calculateError(W, xi(:, 1:P), tau(1:P));
-            setError(i/P+1) = calculateError(W, xi(:, P+1:M), tau(P+1:M));
+        
+        if nargout == 3
+            trainingError(time) = calculateError(W, xi(:, 1:P), tau(1:P));
+            setError(time) = calculateError(W, xi(:, P+1:M), tau(P+1:M));
         end
     end
 end
