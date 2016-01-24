@@ -1,11 +1,11 @@
 % Training size
-P = 500;
+P = 2500;
 
 % Input size
 M = 5000;
 
 % Iterate tmax times over the training set
-tmax = 2500;
+tmax = 500;
 
 % Learning rate
 eta = 0.001;
@@ -16,16 +16,22 @@ permutedData = xi(:, permutation);
 permutedLabels = tau(permutation);
 
 % Start learning
-[W, trainingError, generalizationError] = trainNetwork(permutedData, permutedLabels, P, tmax, eta);
+[W, trainingError, generalizationError, normW] = trainNetwork(permutedData, permutedLabels, initialW, P, tmax, eta);
 
 figure;
 semilogy(trainingError)
 hold on
 semilogy(generalizationError,'r')
 xlabel('t')
-ylabel('error')
+ylabel('Error')
 legend('Training error', 'Generalization error')
 hold off
+
+figure;
+semilogy(normW)
+xlabel('t')
+ylabel('norm(delta W)')
+legend('Norm of weight vector update')
 
 %figure
 %bar(W(:,1));
